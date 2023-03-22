@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./node_app
+      dockerfile: Dockerfile
+    image: my-api
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./node_app:/app
+    environment:
+      - MONGODB_URI=mongodb://db:27017/test
+
+  frontend:
+    build:
+      context: ./metropropertyclient
+      dockerfile: Dockerfile
+    image: my-react
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./metropropertyclient:/app
+    environment:
+      - REACT_APP_API_URL=http://api:8000
+    
